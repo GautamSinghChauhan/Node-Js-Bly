@@ -5,6 +5,8 @@ const cors = require('cors');
 const routes = require('../src/routes/route');
 const process = require('process');
 const connectDB = require('../src/db/index');
+const cookieParser = require('cookie-parser');
+
 
 require('dotenv').config();
 
@@ -28,3 +30,5 @@ connectDB()
 
 // Routes
 app.use('/', routes);
+
+app.use(cookieParser());
