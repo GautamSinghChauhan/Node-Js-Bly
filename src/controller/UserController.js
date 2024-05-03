@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/Users');
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 
 const registerUser = async (req, res) => {
   try {
@@ -74,6 +75,9 @@ const loginUser = async (req, res) => {
 
     // Generate JWT
     const token = jwt.sign({ userId: user._id,userName : user.email}, 'your-secret-key', { expiresIn: '1h' });
+
+    // Set JWT in cookie
+    res.cookie('token', token, { maxAge: 3600000, httpOnly: true });
 
     // Send JWT to client
     return res.status(200).json({ message: 'Login successful', token });
