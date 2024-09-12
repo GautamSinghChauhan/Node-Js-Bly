@@ -8,6 +8,8 @@ router.post('/register', UserController.registerUser);
 router.post('/login', UserController.loginUser);
 // router.post('/updateuser', UserController.updateUser);
 router.put('/updateUser', verifyToken, UserController.updateUser); // Add token verification to the updateUser route
+router.delete('/deleteUser', verifyToken, UserController.deleteUser); // Add route for deleting a user with token verification
+
 
 router.get('/getalluser', UserController.getallUser);
 

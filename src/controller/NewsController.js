@@ -70,4 +70,26 @@ const deleteNews = async (req, res) => {
   }
 }
 
-module.exports = { createNews ,updateNews,deleteNews };
+const getallnews =async (req, res) => {
+  try {
+    const news = await News.find();
+    return res.status(200).json({ news });
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to get news' });
+  }
+}
+
+const getNewsById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const news = await News.findById(id);
+    if (!news) {
+      return res.status(404).json({ error: 'News article not found' });
+    }
+    return res.status(200).json({ news });
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to get news article' });
+  }
+};
+
+module.exports = { createNews ,updateNews,deleteNews,getallnews,getNewsById};

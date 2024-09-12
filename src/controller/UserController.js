@@ -101,6 +101,20 @@ const updateUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const { email } = req.body;
+    // Find user by email and delete
+    const deletedUser = await User.findOneAndDelete({ email });
+    if (!deletedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    return res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to delete user' });
+  }
+};
+
 const getallUser = async (req, res) => {
   try {
     const users = await User.find();
@@ -115,5 +129,6 @@ module.exports = {
   registerUser,
   loginUser,
   updateUser,
-  getallUser
+  getallUser,
+  deleteUser
 };
